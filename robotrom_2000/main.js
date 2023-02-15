@@ -1,11 +1,18 @@
 
 // elementos podem ficar dentro de uma variável
-const robotron = document.querySelector('#robotron');
 
-robotron.addEventListener("click", dizOi );
+const subtrair = document.querySelector('#subtrair');
 
-function dizOi () {
+const somar = document.querySelector('#somar');
 
-    console.log("oi");
+const braco = document.querySelector('#braco');
 
-}
+
+
+somar.addEventListener("click", () => {
+    braco.value = parseInt(braco.value) +1;
+});
+
+subtrair.addEventListener("click", () => {
+    braco.value = parseInt(braco.value) -1;
+});
