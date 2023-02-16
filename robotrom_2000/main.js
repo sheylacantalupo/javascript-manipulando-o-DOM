@@ -1,18 +1,31 @@
 
 // elementos podem ficar dentro de uma variável
 
-const subtrair = document.querySelector('#subtrair');
 
-const somar = document.querySelector('#somar');
+// buscar todos os elementos dessa classe, vai retornar uma lista de elementos que possuem essa classe.
+const controle = document.querySelectorAll(".controle-ajuste")
 
-const braco = document.querySelector('#braco');
+controle.forEach( (elemento) => {
+    
+    elemento.addEventListener("click", (evento) => {
+
+        manipulaDados(evento.target.textContent, evento.target.parentNode);
+
+    })
+
+
+})
 
 
 
-somar.addEventListener("click", () => {
-    braco.value = parseInt(braco.value) +1;
-});
+function manipulaDados (operacao, controle) {
 
-subtrair.addEventListener("click", () => {
-    braco.value = parseInt(braco.value) -1;
-});
+    const peca = controle.querySelector('.controle-contador');
+
+    if(operacao === '-') {
+        peca.value = parseInt(peca.value) -1;
+    }
+    else {
+        peca.value = parseInt(peca.value) +1;
+    }
+}
