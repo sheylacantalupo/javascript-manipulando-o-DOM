@@ -96,13 +96,22 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Iniciar produção" class="producao" id="producao">
+                
+                <!-- <input  type="submit" value="Imprimir relatório" class="producao" id="gerarPdf"> -->
+                <buttom type="submit" class="producao" id="gerarpdf" >Imprimir relatório</buttom>
+                <canvas id="barcode"></canvas>
+
+
             </form>
         </section>
     </main>
 
-    <script src="main.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+   
+
+    <script src="main.js"></script>
+    
 
 </body>
 </html>

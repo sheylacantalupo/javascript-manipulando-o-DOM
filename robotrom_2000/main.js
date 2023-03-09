@@ -1,6 +1,7 @@
+const JsBarcode = require('jsbarcode');
+const jsPDF = require('jspdf');
 
 // elementos podem ficar dentro de uma variável
-
 
 // buscar todos os elementos dessa classe, vai retornar uma lista de elementos que possuem essa classe. (4)
 
@@ -8,6 +9,12 @@ const controle = document.querySelectorAll("[data-controle]");
 
 const estatisticas = document.querySelectorAll("[data-estatistica]");
 console.log(estatisticas);
+console.log(estatisticas["forca"])
+
+
+
+// a busca através do getElementById é mais rápida
+const gerarpdf = document.getElementById('gerarpdf');
 
 const pecas = {
     "bracos": {
@@ -43,7 +50,7 @@ const pecas = {
     }
 }
 
-
+// usando o forEach por se tratar de uma lista de elementos, onde todos precisam ser verificador da mesma forma
 controle.forEach( (elemento) => {
     
     elemento.addEventListener("click", (evento) => {
@@ -84,3 +91,72 @@ function atualizaEstatisticas (peca) {
     })
 
 }
+
+
+gerarpdf.addEventListener("click", () => {
+
+    console.log("entrei no evento");
+
+    gerarPdf();
+
+})
+
+
+
+function gerarPdf() {
+
+    window.jsPDF = window.jspdf.jsPDF;
+    
+    var doc = new jsPDF('p', 'mm', 'a4');
+   
+
+    // var logo = 'https://s3.amazonaws.com//beta-img.b2bstack.net/uploads/production/product/product_image/3870/ypcontrol.jpg';
+    // var logo = 'https://cdn.logo.com/hotlink-ok/logo-social.png';
+    // var imgURL = 'https://logospng.org/wp-content/uploads/bradesco.jpg';
+
+    //doc.addImage(imgURL, 'JPEG', 100, 100, 50, 50);
+
+    let texto = estatisticas[0].textContent;
+    let texto1 = estatisticas[1].textContent;
+    let texto2 = estatisticas[2].textContent;
+    let texto3 = estatisticas[3].textContent;
+
+    // doc.setLineCap("round");
+
+
+    var borderWidth = 10; // 10mm = 1cm
+    var x = borderWidth;
+    var y = borderWidth;
+    var width = doc.internal.pageSize.width - borderWidth * 2;
+    var height = doc.internal.pageSize.height - borderWidth * 2;
+    // espessura da borda
+    doc.setLineWidth(1);
+    // borda do pdf
+    doc.rect(x, y, width, height);
+
+    
+
+    doc.setFontSize(22);
+    doc.text(100, 100, texto);
+    doc.text(100, 110, texto1);
+    doc.text(100, 120, texto2);
+    doc.text(100, 130, texto3);
+    doc.text(50, 20, 'Relatório - Produção Robotrom');
+
+    // doc.addImage(logo, 'JPEG', 15, 40, 180, 160);
+
+    doc.autoPrint();
+
+    // Abre em nova janela
+    // doc.output("dataurlnewwindow");
+
+
+    doc.save('relatório.pdf');
+
+
+}
+
+
+
+// <input  type="submit" value="Imprimir relatório" class="producao" id="gerarPdf">
+
